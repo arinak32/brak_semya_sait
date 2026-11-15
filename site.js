@@ -11,14 +11,6 @@ document.querySelectorAll('.phone').forEach(link => {
 });
 document.querySelector('#whatsapp').href = clinic.whatsapp;
 document.querySelector('#telegram-link').href = 'https://t.me/' + clinic.tel;
-if (clinic.telegram) {
-  const qr = document.querySelector('#telegram-code img');
-  const channel = document.createElement('a');
-  channel.href = clinic.telegram;
-  channel.setAttribute('aria-label', 'Открыть канал клиники в Telegram');
-  qr.replaceWith(channel);
-  channel.append(qr);
-}
 document.querySelector('#address').textContent = clinic.address;
 document.querySelector('#hours').textContent = clinic.hours || 'Часы работы уточняйте по телефону.';
 document.querySelector('#map').href = 'https://yandex.ru/maps/?text=' + encodeURIComponent(clinic.address);
