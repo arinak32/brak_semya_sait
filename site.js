@@ -29,10 +29,10 @@ const doctors = document.querySelector('#doctor-list');
 for (const [key, name, role, credential, description] of clinic.doctors) {
   const card = element('article', '', 'doctor');
   const photo = element('img', '', 'portrait');
-  photo.src = key + '.webp';
+  photo.src = key + '-portrait.webp';
   photo.alt = '';
-  photo.width = 368;
-  photo.height = 460;
+  photo.width = 184;
+  photo.height = 230;
   photo.loading = 'lazy';
   const body = element('div', '', 'doctor-body');
   const booking = element('a', 'Записаться на приём ↗', 'doctor-link');

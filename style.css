@@ -55,7 +55,7 @@ h2 { font-size: clamp(1.8rem, 3.6vw, 3rem); letter-spacing: -.035em; }
 .band h2, .contact h2 { margin-top: 8px; }
 .doctor-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 26px; }
 .doctor { border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: white; display: flex; flex-direction: column; }
-.portrait { display: block; width: 100%; height: clamp(210px, 23vw, 292px); object-fit: cover; object-position: 50% 27%; background: var(--lilac); }
+.portrait { display: block; width: min(184px, calc(100% - 32px)); height: auto; aspect-ratio: 4 / 5; object-fit: contain; margin: 22px auto 0; border-radius: 18px; }
 .doctor-body { padding: 22px; display: flex; flex-direction: column; flex: 1; gap: 10px; }
 .doctor h3, .labs h3 { font-size: 1.29rem; }
 .role { color: var(--pink); font-weight: 720; }
@@ -87,6 +87,14 @@ td:last-child { color: var(--dark); font-weight: 760; }
 #telegram-code { margin-top: 16px; }
 #telegram-code img { display: block; margin-top: 12px; max-width: 100%; height: auto; border-radius: 12px; }
 footer { border-top: 1px solid var(--line); color: var(--muted); }
+.documents { padding-block: 40px 20px; }
+.document-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; list-style: none; padding: 0; margin: 22px 0 0; }
+.document-card { height: 100%; display: flex; flex-direction: column; gap: 5px; padding: 18px; border-radius: 20px; background: var(--lilac); border: 1px solid var(--line); text-decoration: none; }
+.document-card img { width: 100%; height: 162px; object-fit: contain; margin-bottom: 8px; }
+.document-name { font-weight: 780; }
+.document-description { color: var(--muted); font-size: .92rem; }
+.document-action { margin-top: auto; padding-top: 8px; text-decoration: underline; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 @media (max-width: 950px) {
   .top { flex-wrap: wrap; }
   nav { order: 3; width: 100%; }
@@ -103,8 +111,7 @@ footer { border-top: 1px solid var(--line); color: var(--muted); }
   .hero-art { min-height: 205px; }
   .hero-art img { width: 110px; }
   .directions, .band, .services { padding-top: 36px; }
-  .doctor-grid { grid-template-columns: 1fr; }
-  .portrait { height: auto; aspect-ratio: 1.25; object-position: 50% 21%; }
+  .doctor-grid, .document-grid { grid-template-columns: 1fr; }
   .contact { gap: 22px; }
   .bottom { align-items: start; flex-direction: column; gap: 10px; }
 }
