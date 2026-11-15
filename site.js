@@ -29,7 +29,7 @@ const doctors = document.querySelector('#doctor-list');
 for (const [key, name, role, credential, description] of clinic.doctors) {
   const card = element('article', '', 'doctor');
   const photo = element('img', '', 'portrait');
-  photo.src = 'assets/' + key + '.webp';
+  photo.src = key + '.webp';
   photo.alt = '';
   photo.width = 368;
   photo.height = 460;
