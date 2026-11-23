@@ -193,3 +193,11 @@ footer { background: #fff; }
   #price-list .price { padding-inline: 10px; }
   .services, .laboratory { padding-top: 42px; }
 }
+
+.footer-links { display: flex; flex: initial; justify-content: start; gap: 12px 26px; flex-wrap: wrap; padding-block: 12px 24px; font-size: .88rem; }
+.footer-links a { font-weight: 500; text-decoration: underline; }
+.legal { max-width: 840px; padding-block: 48px 64px; }
+.legal h1 { font-size: clamp(2rem, 5vw, 3.2rem); overflow-wrap: anywhere; margin: 0 0 22px; }
+.legal h2 { font-size: 1.4rem; margin: 30px 0 12px; letter-spacing: -.02em; }
+.legal p { margin-bottom: 14px; }
+.legal-notice { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--lilac); }
