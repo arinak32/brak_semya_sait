@@ -206,12 +206,18 @@ footer { background: #fff; }
 .legal p { margin-bottom: 14px; }
 .legal-notice { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--lilac); }
 
-.hero-actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 12px; padding: 20px; }
-.hero-actions .button { min-height: 58px; height: 100%; }
 .service-search { margin-top: 22px; padding: 22px; border-radius: 18px; background: var(--lilac); }
 .service-search label { display: block; margin-bottom: 8px; font-weight: 750; color: var(--dark); }
 #service-search { width: 100%; padding: 15px 18px; border: 1px solid #b8a7ca; border-radius: 12px; background: white; color: var(--ink); font: inherit; }
 @media (max-width: 670px) {
-  .hero-actions { grid-template-columns: 1fr; padding: 8px; gap: 10px; }
   .service-search { padding: 16px; }
+}
+
+@media (min-width: 671px) {
+  .hero .intro { display: flex; flex-direction: column; align-items: flex-start; padding-bottom: 20px; }
+  .hero .intro .label { margin-top: auto; }
+  .hero .intro .lede { margin-bottom: auto; }
+  .hero .intro .actions { margin-top: 25px; width: 100%; display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; }
+  .hero .intro .actions .button, .hero-caption { min-height: 58px; }
+  .hero-caption { align-items: center; }
 }
