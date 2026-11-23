@@ -7,43 +7,52 @@
 <meta name="description" content="Медицинский центр «Брак и Семья» в Москве. Специалисты, услуги и цены, контакты для записи.">
 <title>Брак и Семья | Медицинский центр в Москве</title>
 <link rel="icon" href="logo.png">
-<link rel="stylesheet" href="style.css?v=20261115">
-<script src="content.js" defer></script>
-<script src="site.js?v=telegram-2" defer></script>
+<link rel="stylesheet" href="style.css?v=20261123">
+<script src="content.js?v=20261123" defer></script>
+<script src="site.js?v=20261123" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Перейти к содержанию</a>
 <header>
   <div class="wrap top">
     <a class="brand" href="#main"><img src="logo.png" alt="" width="36" height="43"><span>Брак и Семья<small>Медицинский центр</small></span></a>
-    <nav aria-label="Основное меню"><a href="#doctors">Специалисты</a><a href="#services">Услуги и анализы</a><a href="#documents">Документы</a><a href="#contacts">Контакты</a></nav>
+    <nav aria-label="Основное меню"><a href="#doctors">Специалисты</a><a href="#services">Услуги</a><a href="#laboratory">Лабораторные исследования</a><a href="#documents">Документы</a><a href="#contacts">Контакты</a></nav>
     <a class="button" href="#contacts">Записаться на приём</a>
   </div>
 </header>
 <main id="main">
   <section class="wrap hero" aria-labelledby="title">
     <div class="intro">
-      <p class="label">Медицинский центр · Москва</p>
+      <p class="label">Медицинский центр · Москва</p><p class="since">Работаем с 1996 года</p>
       <h1 id="title">Брак <span>и</span> Семья</h1>
       <p class="lede">Консультации специалистов, ультразвуковая и лабораторная диагностика на 5-й Парковой улице.</p>
       <div class="actions"><a class="button" href="#contacts">Записаться на приём <span aria-hidden="true">↗</span></a><a class="button outline phone"></a></div>
     </div>
-    <div class="hero-art" aria-hidden="true"><div class="ring"></div><img src="logo.png" alt="" width="187" height="222"><span class="dot"></span></div>
+    <div class="hero-art"><img class="hero-photo" src="medical-still-life.png" alt="Медицинские инструменты и лабораторные пробирки" width="1024" height="1280"><a class="hero-caption" href="#laboratory">Лабораторные исследования <span aria-hidden="true">↗</span></a></div>
   </section>
   <section class="wrap directions" aria-labelledby="directions-title">
     <h2 id="directions-title">Наши направления</h2>
     <ul class="chips" id="directions"></ul>
   </section>
   <section class="band" id="doctors" aria-labelledby="doctors-title"><div class="wrap">
-    <p class="label">Команда центра</p>
-    <h2 id="doctors-title">Наши специалисты</h2>
+    <h2 id="doctors-title">Специалисты</h2>
     <div id="doctor-list" class="doctor-grid"></div>
   </div></section>
   <section class="wrap services" id="services" aria-labelledby="services-title">
-    <h2 id="services-title">Услуги и анализы</h2>
+    <h2 id="services-title">Услуги</h2>
     <p class="muted">Стоимость услуг по прайс-листам центра. Актуальность цен можно уточнить по телефону.</p>
     <div id="price-list"></div>
-    <div class="labs"><h3>Лабораторная диагностика</h3><p>Перечень анализов и стоимость уточняйте в регистратуре.</p><a class="phone"></a></div>
+    
+  </section>
+  <section class="wrap laboratory" id="laboratory" aria-labelledby="laboratory-title">
+    <h2 id="laboratory-title">Лабораторные исследования</h2>
+    <div class="lab-partners" id="lab-partners"></div>
+    <div class="lab-catalog">
+      <label for="lab-search">Найти исследование</label>
+      <input id="lab-search" type="search" placeholder="Название или код исследования" autocomplete="off">
+      <p id="lab-status" class="muted" role="status"></p>
+      <div id="lab-prices"></div>
+    </div>
   </section>
   <section class="wrap documents" id="documents" aria-labelledby="documents-title">
     <h2 id="documents-title">Документы</h2>

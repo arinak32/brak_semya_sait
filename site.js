@@ -60,3 +60,72 @@ for (const [group, items] of Object.entries(clinic.prices)) {
   panel.append(title, table);
   prices.append(panel);
 }
+
+const partners = document.querySelector('#lab-partners');
+const laboratoryPanels = document.querySelector('#lab-prices');
+const laboratoryRows = [];
+for (const lab of clinic.laboratories) {
+  const partner = element('article', '', 'lab-partner');
+  const logoLink = element('a');
+  logoLink.href = lab.website;
+  logoLink.setAttribute('aria-label', 'Сайт лаборатории ' + lab.name);
+  const logo = element('img');
+  logo.src = lab.logo;
+  logo.alt = lab.name;
+  logo.width = 220;
+  logo.height = 64;
+  logoLink.append(logo);
+  const jump = element('a', 'Смотреть прайс ↗', 'button outline');
+  jump.href = '#' + lab.id + '-prices';
+  partner.append(logoLink, jump);
+  partners.append(partner);
+
+  const section = element('section', '', 'lab-price-section');
+  section.id = lab.id + '-prices';
+  section.setAttribute('aria-label', 'Прайс лаборатории ' + lab.name);
+  section.append(element('h3', lab.name));
+  const categories = [...new Set(lab.items.map(item => item.group))];
+  for (const category of categories) {
+    const details = element('details', '', 'price');
+    details.append(element('summary', category));
+    const table = element('table');
+    table.setAttribute('aria-label', lab.name + '. ' + category);
+    const header = table.createTHead().insertRow();
+    for (const name of ['Код', 'Исследование', 'Цена']) {
+      const cell = element('th', name);
+      cell.scope = 'col';
+      header.append(cell);
+    }
+    const body = table.createTBody();
+    const records = lab.items.filter(item => item.group === category);
+    for (const item of records) {
+      const row = body.insertRow();
+      row.insertCell().textContent = item.code;
+      row.insertCell().textContent = item.name;
+      row.insertCell().textContent = rubles.format(item.price) + ' ₽';
+      laboratoryRows.push({ row, details, section, text: (item.code + ' ' + item.name + ' ' + category + ' ' + lab.name).toLocaleLowerCase('ru') });
+    }
+    details.append(table);
+    section.append(details);
+  }
+  laboratoryPanels.append(section);
+}
+const search = document.querySelector('#lab-search');
+const status = document.querySelector('#lab-status');
+const normalize = text => text.toLocaleLowerCase('ru').replaceAll('ё', 'е').trim();
+function filterLaboratory() {
+  const query = normalize(search.value);
+  const matches = laboratoryRows.filter(item => normalize(item.text).includes(query));
+  const visibleRows = new Set(matches.map(item => item.row));
+  const visibleCategories = new Set(matches.map(item => item.details));
+  const visibleSections = new Set(matches.map(item => item.section));
+  for (const item of laboratoryRows) {
+    item.row.hidden = !visibleRows.has(item.row);
+    item.details.hidden = !visibleCategories.has(item.details);
+    item.section.hidden = !visibleSections.has(item.section);
+    if (query) item.details.open = !item.details.hidden;
+  }
+  status.textContent = matches.length ? 'Исследований в каталоге: ' + matches.length : 'Ничего не найдено. Попробуйте другое название или код.';
+}
+search.addEventListener('input', filterLaboratory);
+filterLaboratory();
