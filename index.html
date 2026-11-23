@@ -7,9 +7,9 @@
 <meta name="description" content="Медицинский центр «Брак и Семья» в Москве. Специалисты, услуги и цены, контакты для записи.">
 <title>Брак и Семья | Медицинский центр в Москве</title>
 <link rel="icon" href="logo.png">
-<link rel="stylesheet" href="style.css?v=20261123-footer">
+<link rel="stylesheet" href="style.css?v=20261123-layout2">
 <script src="content.js?v=20261123" defer></script>
-<script src="site.js?v=20261123" defer></script>
+<script src="site.js?v=20261123-layout2" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Перейти к содержанию</a>
@@ -26,9 +26,9 @@
       <p class="label">Медицинский центр · Москва</p><p class="since">Работаем с 1996 года</p>
       <h1 id="title">Брак <span>и</span> Семья</h1>
       <p class="lede">Консультации специалистов, ультразвуковая и лабораторная диагностика на 5-й Парковой улице.</p>
-      <div class="actions"><a class="button" href="#contacts">Записаться на приём <span aria-hidden="true">↗</span></a><a class="button outline phone"></a></div>
     </div>
-    <div class="hero-art"><img class="hero-photo" src="medical-still-life.png" alt="Медицинские инструменты и лабораторные пробирки" width="1024" height="1280"><a class="hero-caption" href="#laboratory">Лабораторные исследования <span aria-hidden="true">↗</span></a></div>
+    <div class="hero-art"><img class="hero-photo" src="medical-still-life.png" alt="Медицинские инструменты и лабораторные пробирки" width="1024" height="1280"></div>
+    <div class="hero-actions"><a class="button" href="#contacts">Записаться на приём <span aria-hidden="true">↗</span></a><a class="button outline phone"></a><a class="button outline" href="#laboratory">Лабораторные исследования <span aria-hidden="true">↗</span></a></div>
   </section>
   <section class="wrap directions" aria-labelledby="directions-title">
     <h2 id="directions-title">Наши направления</h2>
@@ -41,6 +41,11 @@
   <section class="wrap services" id="services" aria-labelledby="services-title">
     <h2 id="services-title">Услуги</h2>
     <p class="muted">Стоимость услуг по прайс-листам центра. Актуальность цен можно уточнить по телефону.</p>
+    <div class="service-search">
+      <label for="service-search">Найти услугу</label>
+      <input id="service-search" type="search" placeholder="Название услуги или направления" autocomplete="off">
+      <p id="service-status" class="muted" role="status"></p>
+    </div>
     <div id="price-list"></div>
     
   </section>

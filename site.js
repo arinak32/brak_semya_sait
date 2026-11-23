@@ -40,6 +40,7 @@ for (const [key, name, role, credential, description] of clinic.doctors) {
 
 const prices = document.querySelector('#price-list');
 const rubles = new Intl.NumberFormat('ru-RU');
+const serviceRows = [];
 for (const [group, items] of Object.entries(clinic.prices)) {
   const panel = element('details', '', 'price');
   const title = element('summary', group);
@@ -56,6 +57,7 @@ for (const [group, items] of Object.entries(clinic.prices)) {
     const row = rows.insertRow();
     row.insertCell().textContent = name;
     row.insertCell().textContent = rubles.format(cost) + ' ₽';
+    serviceRows.push({ row, panel, text: name + ' ' + group });
   }
   panel.append(title, table);
   prices.append(panel);
@@ -129,3 +131,29 @@ function filterLaboratory() {
 }
 search.addEventListener('input', filterLaboratory);
 filterLaboratory();
+
+const serviceSearch = document.querySelector('#service-search');
+const serviceStatus = document.querySelector('#service-status');
+const servicePanels = [...new Set(serviceRows.map(item => item.panel))];
+let servicePanelState;
+function filterServices() {
+  const query = normalize(serviceSearch.value);
+  if (query && !servicePanelState) {
+    servicePanelState = new Map(servicePanels.map(panel => [panel, panel.open]));
+  }
+  const matches = serviceRows.filter(item => normalize(item.text).includes(query));
+  const visibleRows = new Set(matches.map(item => item.row));
+  const visiblePanels = new Set(matches.map(item => item.panel));
+  for (const item of serviceRows) {
+    item.row.hidden = !visibleRows.has(item.row);
+  }
+  for (const panel of servicePanels) {
+    panel.hidden = !visiblePanels.has(panel);
+    if (query) panel.open = !panel.hidden;
+    else if (servicePanelState) panel.open = servicePanelState.get(panel);
+  }
+  if (!query) servicePanelState = undefined;
+  serviceStatus.textContent = matches.length ? 'Услуг в каталоге: ' + matches.length : 'Ничего не найдено. Попробуйте другое название или направление.';
+}
+serviceSearch.addEventListener('input', filterServices);
+filterServices();
