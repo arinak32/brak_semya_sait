@@ -157,3 +157,42 @@ function filterServices() {
 }
 serviceSearch.addEventListener('input', filterServices);
 filterServices();
+
+const siteHeader = document.querySelector('.site-header');
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNavigation = document.querySelector('#main-navigation');
+const mobileNavigation = window.matchMedia('(max-width: 670px)');
+function setMenuOpen(open) {
+  const expanded = mobileNavigation.matches && open;
+  mainNavigation.hidden = mobileNavigation.matches && !expanded;
+  menuToggle.setAttribute('aria-expanded', String(expanded));
+  menuToggle.setAttribute('aria-label', expanded ? 'Закрыть меню' : 'Открыть меню');
+}
+siteHeader.classList.add('navigation-ready');
+setMenuOpen(false);
+menuToggle.addEventListener('click', () => {
+  setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true');
+});
+mainNavigation.addEventListener('click', event => {
+  if (event.target.closest('a')) setMenuOpen(false);
+});
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && menuToggle.getAttribute('aria-expanded') === 'true') {
+    setMenuOpen(false);
+    menuToggle.focus();
+  }
+});
+document.addEventListener('click', event => {
+  if (!siteHeader.contains(event.target)) setMenuOpen(false);
+});
+siteHeader.addEventListener('focusout', event => {
+  if (!siteHeader.contains(event.relatedTarget)) setMenuOpen(false);
+});
+mobileNavigation.addEventListener('change', () => {
+  const toggleHadFocus = document.activeElement === menuToggle;
+  setMenuOpen(false);
+  if (toggleHadFocus && !mobileNavigation.matches) mainNavigation.querySelector('a').focus();
+});
+new ResizeObserver(() => {
+  document.documentElement.style.setProperty('--header-height', siteHeader.getBoundingClientRect().height + 'px');
+}).observe(siteHeader);

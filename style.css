@@ -221,3 +221,23 @@ footer { background: #fff; }
   .hero .intro .actions .button, .hero-caption { min-height: 58px; }
   .hero-caption { align-items: center; }
 }
+
+.site-header { position: sticky; top: 0; z-index: 30; background: #fffffff5; backdrop-filter: blur(12px); box-shadow: 0 3px 15px #40345f08; }
+html { scroll-padding-top: calc(var(--header-height, 100px) + 18px); }
+section[id] { scroll-margin-top: 0; }
+.menu-toggle, .mobile-booking { display: none; }
+@media (max-width: 670px) {
+  .site-header .top { justify-content: space-between; flex-wrap: nowrap; padding-block: 12px; }
+  .site-header .top > .button { display: none; }
+  .site-header.navigation-ready .menu-toggle { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 46px; height: 46px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--lilac); cursor: pointer; }
+  .menu-toggle span { width: 21px; height: 2px; border-radius: 2px; background: var(--dark); }
+  .menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-7px) rotate(-45deg); }
+  .site-header.navigation-ready #main-navigation { position: absolute; top: 100%; left: 0; right: 0; width: 100%; padding: 12px 16px 20px; margin: 0; display: flex; flex-direction: column; align-items: stretch; gap: 4px; background: white; border-bottom: 1px solid var(--line); box-shadow: 0 14px 20px #40345f12; max-height: calc(100dvh - var(--header-height, 70px)); overflow-y: auto; }
+  #main-navigation a { padding: 12px 14px; border-radius: 10px; }
+  #main-navigation a:hover { background: var(--lilac); }
+  #main-navigation .mobile-booking { display: flex; margin-top: 8px; color: white; }
+  #main-navigation .mobile-booking:hover { background: var(--dark); }
+  .site-header:not(.navigation-ready) .top { flex-wrap: wrap; }
+}
