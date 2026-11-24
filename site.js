@@ -9,6 +9,10 @@ document.querySelectorAll('.phone').forEach(link => {
   link.textContent = clinic.phone;
   link.href = 'tel:' + clinic.tel;
 });
+document.querySelectorAll('.second-phone').forEach(link => {
+  link.textContent = clinic.secondPhone;
+  link.href = 'tel:' + clinic.secondTel;
+});
 document.querySelector('#whatsapp').href = clinic.whatsapp;
 document.querySelector('#telegram-link').href = 'https://t.me/' + clinic.tel;
 document.querySelector('#address').textContent = clinic.address;

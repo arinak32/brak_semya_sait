@@ -241,3 +241,7 @@ section[id] { scroll-margin-top: 0; }
   #main-navigation .mobile-booking:hover { background: var(--dark); }
   .site-header:not(.navigation-ready) .top { flex-wrap: wrap; }
 }
+
+.footer-phones { display: flex; flex-direction: column; gap: 5px; }
+.license-number, .legal-license { font-size: .88rem; }
+.legal-license { padding-top: 22px; }
