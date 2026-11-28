@@ -24,20 +24,97 @@ for (const name of clinic.directions) {
   directions.append(element('li', name));
 }
 
+const profileDialog = element('dialog', '', 'doctor-dialog');
+profileDialog.setAttribute('aria-labelledby', 'doctor-profile-title');
+const profileHeader = element('div', '', 'profile-header');
+const profileLabel = element('div');
+profileLabel.append(element('p', 'Специалист клиники', 'label'));
+const profileTitle = element('h2');
+profileTitle.id = 'doctor-profile-title';
+profileLabel.append(profileTitle);
+const profileClose = element('button', '×', 'profile-close');
+profileClose.type = 'button';
+profileClose.setAttribute('aria-label', 'Закрыть информацию о враче');
+profileHeader.append(profileLabel, profileClose);
+const profileContent = element('div', '', 'profile-content');
+const profileFooter = element('div', '', 'profile-footer');
+const profileBooking = element('a', 'Записаться на приём', 'button');
+profileBooking.href = '#contacts';
+const profileDone = element('button', 'Закрыть', 'button outline');
+profileDone.type = 'button';
+profileFooter.append(profileDone, profileBooking);
+profileDialog.append(profileHeader, profileContent, profileFooter);
+document.body.append(profileDialog);
+let profileTrigger = null;
+function closeDoctorProfile() { profileDialog.close(); }
+profileClose.addEventListener('click', closeDoctorProfile);
+profileDone.addEventListener('click', closeDoctorProfile);
+profileBooking.addEventListener('click', closeDoctorProfile);
+profileDialog.addEventListener('close', () => {
+  document.body.classList.remove('profile-open');
+  profileTrigger?.focus({ preventScroll:true });
+});
+profileDialog.addEventListener('click', event => {
+  if (event.target === profileDialog) {
+    const box = profileDialog.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeDoctorProfile();
+  }
+});
+function openDoctorProfile(trigger, name, role, photoPath, profile) {
+  profileTrigger = trigger;
+  profileTitle.textContent = name;
+  profileBooking.setAttribute('aria-label', 'Записаться на приём. ' + name);
+  profileContent.replaceChildren();
+  const intro = element('div', '', 'profile-intro');
+  const image = element('img');
+  image.src = photoPath;
+  image.alt = name;
+  image.width = 104;
+  image.height = 130;
+  intro.append(image, element('p', role, 'role'));
+  const sections = element('div', '', 'profile-sections');
+  for (const section of profile.sections) {
+    if (!section.items?.length) continue;
+    const block = element('section', '', 'profile-section');
+    block.append(element('h3', section.title));
+    const list = element('ul', '', 'profile-timeline');
+    for (const item of section.items) {
+      const entry = element('li');
+      if (item.year) entry.append(element('span', item.year, 'profile-year'));
+      entry.append(element('p', item.text));
+      list.append(entry);
+    }
+    block.append(list);
+    sections.append(block);
+  }
+  profileContent.append(intro, sections);
+  document.body.classList.add('profile-open');
+  profileDialog.showModal();
+}
 const doctors = document.querySelector('#doctor-list');
-for (const [key, name, role, credential, description] of clinic.doctors) {
+for (const [key, name, role, credential, description, suppliedPhoto, profile] of clinic.doctors) {
   const card = element('article', '', 'doctor');
   const photo = element('img', '', 'portrait');
-  photo.src = key + '-portrait.webp';
+  photo.src = suppliedPhoto || 'assets/logo.png';
   photo.alt = '';
   photo.width = 184;
   photo.height = 230;
   photo.loading = 'lazy';
   const body = element('div', '', 'doctor-body');
+  const actions = element('div', '', 'doctor-actions');
+  if (profile?.sections?.some(section => section.items?.length)) {
+    const more = element('button', 'Образование и квалификация', 'doctor-more');
+    more.type = 'button';
+    more.setAttribute('aria-haspopup', 'dialog');
+    more.setAttribute('aria-label', 'Образование и квалификация. ' + name);
+    more.addEventListener('click', () => openDoctorProfile(more, name, role, photo.src, profile));
+    actions.append(more);
+  }
   const booking = element('a', 'Записаться на приём ↗', 'doctor-link');
   booking.href = '#contacts';
   booking.setAttribute('aria-label', 'Записаться на приём. ' + name);
-  body.append(element('h3', name), element('p', role, 'role'), element('p', credential, 'credential'), element('p', description), booking);
+  actions.append(booking);
+  body.append(element('h3', name), element('p', role, 'role'), element('p', credential, 'credential'), element('p', description), actions);
   card.append(photo, body);
   doctors.append(card);
 }
@@ -76,7 +153,7 @@ for (const lab of clinic.laboratories) {
   logoLink.href = lab.website;
   logoLink.setAttribute('aria-label', 'Сайт лаборатории ' + lab.name);
   const logo = element('img');
-  logo.src = lab.logo;
+  logo.src = 'assets/' + lab.logo;
   logo.alt = lab.name;
   logo.width = 220;
   logo.height = 64;
